@@ -178,7 +178,7 @@
   document.addEventListener('dblclick', (e) => { if (current) e.preventDefault(); }, { passive: false });
 
   // offline podpora (len na webe; v Android apke netreba)
-  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol) && !inNativeShell) {
+  if (!window.RETRO_EMBED && 'serviceWorker' in navigator && /^https?:$/.test(location.protocol) && !inNativeShell) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('sw.js').catch(() => { /* napr. v náhľade bez SW */ });
     });
