@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<title>Retro Hry</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="description" content="Tri vreckové hry ako z 90. rokov: Kocky, Formulky a Líška a vajíčka. Pípajúce zvuky, LCD displej, funguje aj offline.">
+<meta name="theme-color" content="#1d1b2c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Retro Hry">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ============================================================ MENU -->
+  <main id="menu" class="screen">
+    <div class="menu-inner">
+      <header class="masthead">
+        <h1 class="wordmark">Retro<br>Hry</h1>
+        <p class="tagline">Tri vreckové hry ako z&nbsp;90. rokov. Zelenkavý LCD displej, pípanie z&nbsp;bzučiaka a&nbsp;rekordy, ktoré si apka pamätá.</p>
+      </header>
+
+      <nav class="shelf" aria-label="Hry">
+        <a class="cart cart--brick" href="#kocky" data-route="kocky">
+          <span class="cart-window"><canvas data-preview="blocks" aria-hidden="true"></canvas></span>
+          <span class="cart-text">
+            <span class="cart-title">Kocky</span>
+            <span class="cart-desc">Padajúce kocky na kockovej konzole. Skladaj plné riadky, kým ťa nezasypú.</span>
+            <span class="cart-hi">Rekord <b data-hi="blocks">0</b></span>
+          </span>
+        </a>
+        <a class="cart cart--racing" href="#formulky" data-route="formulky">
+          <span class="cart-window"><canvas data-preview="racing" aria-hidden="true"></canvas></span>
+          <span class="cart-text">
+            <span class="cart-title">Formulky</span>
+            <span class="cart-desc">Autíčko z kociek, dva pruhy a protiidúce autá. S plynom je viac bodov.</span>
+            <span class="cart-hi">Rekord <b data-hi="racing">0</b></span>
+          </span>
+        </a>
+        <a class="cart cart--eggs" href="#liska" data-route="liska">
+          <span class="cart-window"><canvas data-preview="eggs" aria-hidden="true"></canvas></span>
+          <span class="cart-text">
+            <span class="cart-title">Líška a&nbsp;vajíčka</span>
+            <span class="cart-desc">Vajíčka sa kotúľajú zo štyroch žľabov. Nastav košík skôr, než sa rozbijú. Keď nehráš, ukazuje hodiny.</span>
+            <span class="cart-hi">Rekord A <b data-hi="eggsA">0</b> · B <b data-hi="eggsB">0</b></span>
+          </span>
+        </a>
+      </nav>
+
+      <section class="prefs" aria-label="Nastavenia">
+        <button type="button" id="pref-sound" class="chip" aria-pressed="true"><span class="chip-dot"></span>Zvuk</button>
+        <button type="button" id="pref-vibrate" class="chip" aria-pressed="true"><span class="chip-dot"></span>Vibrácie</button>
+        <button type="button" id="pref-install" class="chip chip--install" hidden>Nainštalovať apku</button>
+      </section>
+      <p id="ios-hint" class="hint" hidden>Na iPhone: ťukni na <b>Zdieľať</b> a&nbsp;potom <b>Pridať na plochu</b>. Hry budú fungovať aj bez internetu.</p>
+
+      <details class="howto">
+        <summary>Ako sa hrá</summary>
+        <dl>
+          <dt>Kocky</dt>
+          <dd>◄ ► posun, ▼ podržaním rýchly pád, ▲ alebo ROTATE otočí kocku. Na úvodnej obrazovke ▲ mení SPEED, ▼ mení LEVEL (riadky navyše), ◄ ► prepína hru A/B.</dd>
+          <dt>Formulky</dt>
+          <dd>◄ ► zmena pruhu, podržaný ROTATE alebo ▲ pridá plyn, ▼ brzdí. Máš štyri autá, zostávajúce vidíš v okienku NEXT.</dd>
+          <dt>Líška a vajíčka</dt>
+          <dd>Štyri tlačidlá alebo ťuknutie do rohu displeja presunú košík. Tri rozbité vajíčka a je koniec. Každých 100 bodov sa chyby zmažú. HRA B je rýchlejšia.</dd>
+        </dl>
+      </details>
+    </div>
+  </main>
+
+  <!-- ============================================================ KOCKOVÁ KONZOLA -->
+  <section id="brick" class="screen" hidden aria-label="Kocková konzola">
+    <div class="console">
+      <button type="button" class="console-brand" data-action="color" aria-label="Zmeniť farbu konzoly">
+        <span class="console-name">RETRO</span><span class="console-sub">9999 in 1</span>
+      </button>
+      <div class="bezel">
+        <div class="lcd-holder"><canvas role="img" aria-label="Displej konzoly"></canvas></div>
+      </div>
+      <div class="console-small">
+        <span class="sbtn"><button type="button" data-btn="onoff" aria-label="Vypnúť a späť do menu"></button><span>ON/OFF</span></span>
+        <span class="sbtn"><button type="button" data-btn="start" aria-label="Štart alebo pauza"></button><span>START/PAUSE</span></span>
+        <span class="sbtn"><button type="button" data-btn="sound" aria-label="Zvuk"></button><span>SOUND</span></span>
+        <span class="sbtn"><button type="button" data-btn="reset" aria-label="Reset"></button><span>RESET</span></span>
+      </div>
+      <div class="console-pad">
+        <div class="dpad">
+          <button type="button" class="dbtn dbtn--up" data-btn="up" aria-label="Hore"><i></i></button>
+          <button type="button" class="dbtn dbtn--left" data-btn="left" data-repeat="1" aria-label="Doľava"><i></i></button>
+          <button type="button" class="dbtn dbtn--right" data-btn="right" data-repeat="1" aria-label="Doprava"><i></i></button>
+          <button type="button" class="dbtn dbtn--down" data-btn="down" aria-label="Dole"><i></i></button>
+        </div>
+        <div class="rotate">
+          <button type="button" class="bigbtn" data-btn="rotate" aria-label="Otočiť"></button>
+          <span>ROTATE</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ LÍŠKA A VAJÍČKA -->
+  <section id="eggs" class="screen" hidden aria-label="Líška a vajíčka">
+    <div class="gw">
+      <div class="gw-head">
+        <span class="gw-name">LÍŠKA</span>
+        <span class="gw-sub">HRA &amp; HODINY</span>
+      </div>
+      <div class="gw-screen">
+        <div class="lcd-holder"><canvas role="img" aria-label="Displej hry Líška a vajíčka"></canvas></div>
+      </div>
+      <div class="gw-controls">
+        <div class="gw-side">
+          <button type="button" class="gwbtn" data-btn="ul" aria-label="Košík hore vľavo"></button>
+          <button type="button" class="gwbtn" data-btn="ll" aria-label="Košík dole vľavo"></button>
+        </div>
+        <div class="gw-mid">
+          <button type="button" class="gwsmall" data-btn="gameA">HRA A</button>
+          <button type="button" class="gwsmall" data-btn="gameB">HRA B</button>
+          <button type="button" class="gwsmall" data-btn="sound">ZVUK</button>
+          <button type="button" class="gwsmall" data-btn="onoff">MENU</button>
+        </div>
+        <div class="gw-side">
+          <button type="button" class="gwbtn" data-btn="ur" aria-label="Košík hore vpravo"></button>
+          <button type="button" class="gwbtn" data-btn="lr" aria-label="Košík dole vpravo"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="js/core.js"></script>
+<script src="js/lcd.js"></script>
+<script src="js/game-blocks.js"></script>
+<script src="js/game-racing.js"></script>
+<script src="js/brick-console.js"></script>
+<script src="js/game-eggs.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

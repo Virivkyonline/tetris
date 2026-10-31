@@ -1,0 +1,18 @@
+{
+  "appId": "sk.retrohry.app",
+  "appName": "Retro Hry",
+  "webDir": "www",
+  "backgroundColor": "#1d1b2c",
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": false,
+    "webContentsDebuggingEnabled": false
+  },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "native",
+      "initialViewportFitValueHint": "cover",
+      "style": "DARK"
+    }
+  }
+}

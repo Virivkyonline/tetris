@@ -1,0 +1,80 @@
+# Retro Hry
+
+Tri vreckové hry ako z 90. rokov v jednej mobilnej apke:
+
+| Hra | Na čom beží | O čo ide |
+| --- | --- | --- |
+| **Kocky** | kocková konzola „RETRO 9999 in 1“ | padajúce kocky na matici 10×20, plné riadky miznú |
+| **Formulky** | tá istá konzola (hra B) | autíčko z kociek uhýba protiidúcim autám v dvoch pruhoch |
+| **Líška a vajíčka** | LCD hra s hodinami | líška chytá do košíka vajíčka zo štyroch žľabov |
+
+Všetko je nakreslené ako starý LCD displej (aj so „zhasnutými“ segmentmi), zvuky sú
+pípanie z piezo bzučiaka cez Web Audio, rekordy sa ukladajú v telefóne. Grafika, postavičky,
+melódie aj pravidlá sú vlastné, hry sú *v štýle* starých vreckoviek, nie ich kópie.
+
+## Ovládanie
+
+**Kocková konzola** (Kocky, Formulky)
+
+- Na úvodnej obrazovke: ◄ ► prepína hru A/B, ▲ mení SPEED, ▼ mení LEVEL, ROTATE alebo START spustí hru.
+- Kocky: ◄ ► posun, ▼ podržaním rýchly pád, ▲ alebo ROTATE otočenie. LEVEL pridá na začiatku riadky „smetí“.
+- Formulky: ◄ ► pruh, podržaný ROTATE/▲ = plyn, ▼ = brzda. Zostávajúce autá sú v okienku NEXT.
+- START/PAUSE = pauza (na displeji sa ukáže šálka kávy), RESET = späť na výber, SOUND = zvuk, ON/OFF = menu.
+- Ťuknutím na nápis RETRO zmeníš farbu plastu.
+
+**Líška a vajíčka**
+
+- Štyri veľké tlačidlá (alebo ťuknutie do rohu displeja) presunú košík.
+- HRA A je pomalšia, HRA B rýchlejšia. Tri rozbité vajíčka = koniec. Každých 100 bodov sa chyby zmažú.
+- Keď sa nehrá, displej ukazuje hodiny.
+
+Na počítači: šípky, medzerník (otočiť), Enter (štart/pauza), Esc (menu); v Líške Q/A/P/L.
+
+## Ako dostať apku do mobilu
+
+### Android – APK
+
+Pri každom pushi GitHub Actions zostaví `RetroHry.apk` (workflow `.github/workflows/android.yml`).
+
+- Na hlavnej vetve sa APK pridá do **Releases** – v telefóne otvor stránku repozitára → Releases → `RetroHry.apk`.
+- Pri ostatných vetvách je APK v záložke **Actions** → beh → *Artifacts* → `RetroHry-apk` (ZIP).
+
+Pri inštalácii treba povoliť „inštaláciu z neznámych zdrojov“ pre prehliadač. Novšia APK sa nainštaluje
+cez staršiu a rekordy ostanú, lebo všetky zostavy podpisuje ten istý ladiaci kľúč
+`android/app/retrohry-debug.keystore`. Tento kľúč je verejný a slúži len na domáce používanie;
+na Google Play treba vytvoriť vlastný tajný kľúč a ten do repozitára nedávať.
+
+### Web / iPhone – PWA
+
+Priečinok `www/` je hotová webová apka (funguje aj offline). Stačí ju dať na ľubovoľný HTTPS hosting
+(GitHub Pages, Cloudflare Pages, Netlify…), otvoriť v mobile a:
+
+- Android/Chrome: v menu sa ukáže tlačidlo **Nainštalovať apku**,
+- iPhone/Safari: **Zdieľať → Pridať na plochu**.
+
+## Vývoj
+
+```bash
+npm start                 # http://localhost:8080 (obsah priečinka www/)
+npm install
+npx cap sync android      # skopíruje www/ do Android projektu
+npx cap open android      # otvorí projekt v Android Studiu
+```
+
+Štruktúra:
+
+```
+www/
+  index.html, css/style.css
+  js/core.js           ukladanie, zvuk (bzučiak), vibrácie, tlačidlá
+  js/lcd.js            LCD displej konzoly, 7-segmentové číslice
+  js/game-blocks.js    Kocky
+  js/game-racing.js    Formulky
+  js/brick-console.js  konzola: výber hry, SPEED/LEVEL, pauza, „opona“
+  js/game-eggs.js      Líška a vajíčka (segmenty, hodiny, pravidlá)
+  js/app.js            menu, navigácia, hlavná slučka
+  sw.js, manifest.webmanifest, icons/, fonts/
+android/               Capacitor projekt (Android)
+```
+
+Písma Silkscreen a Rubik sú pod licenciou SIL Open Font License 1.1.
