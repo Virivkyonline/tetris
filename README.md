@@ -1,12 +1,19 @@
 # Retro Hry
 
-Tri vreckové hry ako z 90. rokov v jednej mobilnej apke:
+Štyri vreckové hry ako z 90. rokov v jednej mobilnej apke:
 
 | Hra | Na čom beží | O čo ide |
 | --- | --- | --- |
-| **Kocky** | kocková konzola „RETRO 9999 in 1“ | padajúce kocky na matici 10×20, plné riadky miznú |
-| **Formulky** | tá istá konzola (hra B) | autíčko z kociek uhýba protiidúcim autám v dvoch pruhoch |
-| **Líška a vajíčka** | LCD hra s hodinami | líška chytá do košíka vajíčka zo štyroch žľabov |
+| **Kocky** | kocková konzola „RETRO 9999 in 1“ | padajúce kocky na matici 10×20, plné riadky miznú; hra B = autíčko z kociek |
+| **Formulky** | červeno-čierna LCD vreckovka „GAME“ | cesta do diaľky, hory na obzore, formuly sa blížia v troch pruhoch |
+| **Formulky**
+
+- GAME spustí hru, SET mimo hry prepína GAME 1 / GAME 2 (dvojka je rýchlejšia a hustejšia), počas hry SET = pauza.
+- Trojuholníky ◄ ► (alebo ťuknutie na ľavú/pravú polovicu displeja) menia pruh. Tri autá, každých 100 bodov jedno pribudne.
+- Keď sa nehrá, displej ukazuje hodiny a autíčko jazdí samo.
+
+**Líška a vajíčka** | LCD hra s hodinami | líška chytá do košíka vajíčka zo štyroch žľabov |
+| **Chobotnica** | LCD hra s hodinami (zelený rám) | potápač nosí perly z truhlice na loďku a uhýba chápadlám |
 
 Všetko je nakreslené ako starý LCD displej (aj so „zhasnutými“ segmentmi), zvuky sú
 pípanie z piezo bzučiaka cez Web Audio, rekordy sa ukladajú v telefóne. Grafika, postavičky,
@@ -18,15 +25,27 @@ melódie aj pravidlá sú vlastné, hry sú *v štýle* starých vreckoviek, nie
 
 - Na úvodnej obrazovke: ◄ ► prepína hru A/B, ▲ mení SPEED, ▼ mení LEVEL, ROTATE alebo START spustí hru.
 - Kocky: ◄ ► posun, ▼ podržaním rýchly pád, ▲ alebo ROTATE otočenie. LEVEL pridá na začiatku riadky „smetí“.
-- Formulky: ◄ ► pruh, podržaný ROTATE/▲ = plyn, ▼ = brzda. Zostávajúce autá sú v okienku NEXT.
+- Hra B (autá z kociek): ◄ ► pruh, podržaný ROTATE/▲ = plyn, ▼ = brzda. Zostávajúce autá sú v okienku NEXT.
 - START/PAUSE = pauza (na displeji sa ukáže šálka kávy), RESET = späť na výber, SOUND = zvuk, ON/OFF = menu.
 - Ťuknutím na nápis RETRO zmeníš farbu plastu.
+
+**Formulky**
+
+- GAME spustí hru, SET mimo hry prepína GAME 1 / GAME 2 (dvojka je rýchlejšia a hustejšia), počas hry SET = pauza.
+- Trojuholníky ◄ ► (alebo ťuknutie na ľavú/pravú polovicu displeja) menia pruh. Tri autá, každých 100 bodov jedno pribudne.
+- Keď sa nehrá, displej ukazuje hodiny a autíčko jazdí samo.
 
 **Líška a vajíčka**
 
 - Štyri veľké tlačidlá (alebo ťuknutie do rohu displeja) presunú košík.
 - HRA A je pomalšia, HRA B rýchlejšia. Tri rozbité vajíčka = koniec. Každých 100 bodov sa chyby zmažú.
 - Keď sa nehrá, displej ukazuje hodiny.
+
+**Chobotnica**
+
+- ◄ = k truhlici, pri truhlici každé stlačenie zoberie perlu (+1). ► = späť k loďke; po návrate sa perly započítajú ešte raz.
+- Plne natiahnuté chápadlo potápača chytí. Náhradníci sedia v loďke, každých 200 bodov jeden pribudne.
+- HRA A / HRA B (rýchlejšia). Keď sa nehrá, ukazuje hodiny.
 
 Na počítači: šípky, medzerník (otočiť), Enter (štart/pauza), Esc (menu); v Líške Q/A/P/L.
 
@@ -69,9 +88,12 @@ www/
   js/core.js           ukladanie, zvuk (bzučiak), vibrácie, tlačidlá
   js/lcd.js            LCD displej konzoly, 7-segmentové číslice
   js/game-blocks.js    Kocky
-  js/game-racing.js    Formulky
+  js/game-racing.js    autá z kociek (hra B na konzole)
   js/brick-console.js  konzola: výber hry, SPEED/LEVEL, pauza, „opona“
   js/game-eggs.js      Líška a vajíčka (segmenty, hodiny, pravidlá)
+  js/segscreen.js      spoločný LCD displej so segmentmi a hodinami
+  js/game-racer.js     Formulky (cesta do diaľky)
+  js/game-octopus.js   Chobotnica
   js/app.js            menu, navigácia, hlavná slučka
   sw.js, manifest.webmanifest, icons/, fonts/
 android/               Capacitor projekt (Android)

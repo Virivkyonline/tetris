@@ -51,6 +51,20 @@
   --gw-key-dk: #9b2f16;
   --gw-frame: #2b2a2c;
 
+  /* Formulky – červeno-čierna vreckovka */
+  --f1-red: #c8322b;
+  --f1-red-dk: #8a1d18;
+  --f1-black: #1f1f23;
+  --f1-black-hi: #3a3a41;
+  --f1-bezel: #101012;
+  --f1-word: #cfcfd2;
+  --f1-bar: #e4493d;
+
+  /* Chobotnica – krémová so zeleným rámom */
+  --oct-rim: #3d8c68;
+  --oct-rim-dk: #27664a;
+  --oct-print: #f3ecd6;
+
   --font-display: "Silkscreen", "Courier New", ui-monospace, monospace;
   --font-body: "Rubik", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   color-scheme: dark;
@@ -136,6 +150,8 @@ button { font: inherit; color: inherit; }
 .cart:active { transform: translateY(4px); box-shadow: inset 0 2px 0 var(--gloss), inset 0 -4px 0 var(--shade), 0 2px 0 var(--plastic-dk), 0 6px 12px var(--drop); }
 .cart--racing { --plastic: var(--plastic-red); --plastic-dk: var(--plastic-red-dk); --print: var(--print-red); }
 .cart--eggs { --plastic: var(--gw-face); --plastic-dk: var(--gw-face-dk); --print: var(--gw-print); }
+.cart--octo { --plastic: var(--oct-rim); --plastic-dk: var(--oct-rim-dk); --print: var(--oct-print); }
+.cart--racing .cart-window { background: var(--f1-black); border-radius: 8px 8px 18px 18px; }
 .cart-window {
   display: block;
   width: 104px;
@@ -145,7 +161,7 @@ button { font: inherit; color: inherit; }
   background: var(--bezel);
   box-shadow: inset 0 2px 4px var(--drop);
 }
-.cart--eggs .cart-window { background: var(--gw-frame); border-radius: 8px; }
+.cart--eggs .cart-window, .cart--octo .cart-window { background: var(--gw-frame); border-radius: 8px; }
 .cart-window canvas { display: block; width: 92px; height: 92px; border-radius: 3px; }
 .cart-text { display: grid; gap: 4px; min-width: 0; }
 .cart-title {
@@ -224,7 +240,7 @@ button { font: inherit; color: inherit; }
   border-radius: 3px;
   touch-action: none;
 }
-#brick, #eggs, #brick *, #eggs * {
+#brick, #eggs, #racer, #octo, #brick *, #eggs *, #racer *, #octo * {
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
@@ -429,6 +445,142 @@ button { font: inherit; color: inherit; }
 }
 .gwsmall.is-down { transform: translateY(2px); box-shadow: 0 1px 0 var(--drop); }
 
+/* Chobotnica: rovnaké telo, zelený rám, jedno veľké tlačidlo na každej strane */
+.gw--octo {
+  --gw-band: var(--oct-rim);
+  --gw-face-dk: var(--oct-rim-dk);
+  --gw-band-print: var(--oct-print);
+  border: 6px solid var(--oct-rim);
+}
+.gw--octo .gw-head { flex-wrap: wrap; row-gap: 4px; }
+.gw--octo .gw-name { font-size: 20px; letter-spacing: 0.08em; }
+.gw--octo .gw-side { justify-items: center; gap: 8px; }
+.gw-arrow { font: 700 22px/1 Arial, Helvetica, sans-serif; color: var(--gw-print); }
+
+/* ================================================================ FORMULKY */
+#racer { display: flex; padding-block: 10px 12px; }
+.f1 {
+  --t: clamp(76px, min(28vw, 14vh), 124px); /* veľkosť trojuholníka */
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 24px 18px;
+  background: linear-gradient(170deg, var(--gloss-soft), transparent 35%), var(--f1-red);
+  border-radius: 18px 18px 30px 30px;
+  box-shadow: inset 0 3px 0 var(--gloss), inset 0 -6px 0 var(--shade), 0 7px 0 var(--f1-red-dk), 0 18px 30px var(--drop);
+}
+/* rebrovanie po bokoch ako na fotke */
+.f1::before, .f1::after {
+  content: "";
+  position: absolute;
+  top: 74px;
+  width: 11px;
+  height: 30%;
+  border-radius: 3px;
+  background: repeating-linear-gradient(to bottom, var(--f1-black) 0 9px, transparent 9px 15px);
+}
+.f1::before { left: 6px; }
+.f1::after { right: 6px; }
+.f1-top { display: flex; justify-content: flex-end; gap: 8px; }
+.f1-pill {
+  min-height: 34px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--f1-black);
+  color: var(--f1-word);
+  font: 700 11px/1 Arial, Helvetica, sans-serif;
+  letter-spacing: 0.08em;
+  box-shadow: 0 3px 0 var(--drop);
+}
+.f1-pill.is-down { transform: translateY(2px); box-shadow: 0 1px 0 var(--drop); }
+.f1-face {
+  flex: 0 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px 16px;
+  background: var(--f1-black);
+  border-radius: 12px 12px 34px 34px;
+  box-shadow: inset 0 2px 0 var(--f1-black-hi), 0 4px 0 var(--drop);
+}
+.f1-word {
+  font: italic 700 34px/0.9 var(--font-body);
+  letter-spacing: 0.02em;
+  color: var(--f1-word);
+}
+.f1-screen {
+  flex: 0 1 auto;
+  min-height: 0;
+  display: flex;
+  aspect-ratio: 420 / 320;
+  padding: 10px;
+  border-radius: 6px;
+  background: var(--f1-bezel);
+  box-shadow: inset 0 3px 8px var(--drop);
+}
+.f1-controls {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: var(--t) minmax(0, 1fr) var(--t);
+  grid-template-areas: "panel panel panel" "l . r";
+  align-content: center;
+  align-items: center;
+  gap: 16px 10px;
+}
+.f1-tri--l { grid-area: l; }
+.f1-tri--r { grid-area: r; }
+.f1-panel { grid-area: panel; }
+.f1-tri {
+  width: var(--t);
+  height: calc(var(--t) * 0.86);
+  background: linear-gradient(150deg, var(--f1-black-hi), var(--f1-black) 55%);
+  transition: transform 0.05s, filter 0.05s;
+}
+.f1-tri--l { clip-path: polygon(0 50%, 100% 0, 100% 100%); }
+.f1-tri--r { clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.f1-tri.is-down { transform: translateY(3px) scale(0.96); filter: brightness(1.5); }
+.f1-panel {
+  justify-self: center;
+  display: flex;
+  gap: 12px;
+  padding: 10px 12px 12px;
+  border-radius: 10px;
+  background: var(--f1-black);
+  box-shadow: 0 4px 0 var(--drop);
+}
+.f1-key {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  color: var(--f1-word);
+  font: 700 12px/1 Arial, Helvetica, sans-serif;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.f1-key small { font-size: 9px; }
+.f1-key button {
+  position: relative;
+  width: 56px;
+  height: 30px;
+  background: none;
+}
+.f1-key button::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 9px;
+  height: 11px;
+  border-radius: 3px;
+  background: var(--f1-bar);
+  box-shadow: 0 3px 0 var(--f1-red-dk);
+}
+.f1-key button.is-down::before { transform: translateY(2px); box-shadow: 0 1px 0 var(--f1-red-dk); }
+
 /* ================================================================ NA ŠÍRKU */
 @media (orientation: landscape) and (max-height: 620px) {
   #menu { padding-block: 18px 24px; }
@@ -461,7 +613,7 @@ button { font: inherit; color: inherit; }
     gap: 10px 18px;
   }
   .gw-head { grid-area: head; padding: 8px 20px 6px; }
-  .gw-screen { grid-area: screen; margin: 0; aspect-ratio: auto; }
+  .gw-screen { grid-area: screen; margin: 0; height: 100%; width: auto; max-width: 100%; justify-self: center; }
   .gw-controls { display: contents; }
   .gw-side:first-child { grid-area: lside; padding-left: 18px; }
   .gw-side:last-child { grid-area: rside; padding-right: 18px; }
@@ -469,6 +621,29 @@ button { font: inherit; color: inherit; }
   .gw-mid { grid-area: mid; grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: none; }
 }
 
+@media (orientation: landscape) and (max-height: 620px) {
+  .f1 {
+    --t: clamp(60px, 19vh, 108px);
+    max-width: 980px;
+    display: grid;
+    grid-template-columns: var(--t) minmax(0, 1fr) var(--t);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas: "top top top" "l face r" "l panel r";
+    gap: 8px 18px;
+    padding: 8px 28px 14px;
+  }
+  .f1::before, .f1::after { top: 46px; height: 40%; }
+  .f1-top { grid-area: top; }
+  .f1-face { grid-area: face; justify-self: center; flex-direction: row; align-items: stretch; padding: 10px 12px 12px; border-radius: 10px 10px 26px 26px; }
+  .f1-word { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 30px; text-align: center; }
+  .f1-screen { flex: 0 0 auto; height: 100%; aspect-ratio: 420 / 320; }
+  .f1-controls { display: contents; }
+  .f1-tri--l { grid-area: l; align-self: end; }
+  .f1-tri--r { grid-area: r; align-self: end; }
+  .f1-panel { grid-area: panel; }
+  .gw--octo .gw-side { gap: 6px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .cart, .dbtn, .bigbtn, .gwbtn { transition: none; }
+  .cart, .dbtn, .bigbtn, .gwbtn, .f1-tri { transition: none; }
 }

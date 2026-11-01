@@ -3,8 +3,8 @@
 
 (function (R) {
   const $ = (s) => document.querySelector(s);
-  const screens = { menu: $('#menu'), brick: $('#brick'), eggs: $('#eggs') };
-  const ROUTES = { kocky: ['brick', 'blocks'], formulky: ['brick', 'racing'], liska: ['eggs', null] };
+  const screens = { menu: $('#menu'), brick: $('#brick'), eggs: $('#eggs'), racer: $('#racer'), octo: $('#octo') };
+  const ROUTES = { kocky: ['brick', 'blocks'], formulky: ['racer', null], liska: ['eggs', null], chobotnica: ['octo', null] };
 
   let pushedFromMenu = false;
   const app = {
@@ -18,7 +18,13 @@
   };
 
   const brick = R.BrickConsole(screens.brick, app);
-  const eggs = R.EggsGame(screens.eggs, app);
+  const devices = {
+    brick,
+    eggs: R.EggsGame(screens.eggs, app),
+    racer: R.RacerGame(screens.racer, app),
+    octo: R.OctopusGame(screens.octo, app)
+  };
+  R.devices = devices;
   let current = null;
 
   function setHash(h) {
@@ -48,7 +54,7 @@
       return;
     }
     show(r[0]);
-    current = r[0] === 'brick' ? brick : eggs;
+    current = devices[r[0]];
     current.enter(r[1]);
     wake(true);
   }
@@ -120,6 +126,10 @@
       R.lcdBackground(ctx, w, h);
       if (p.kind === 'eggs') {
         R.drawEggsPreview(ctx, w, h, previewT);
+      } else if (p.kind === 'racer') {
+        R.drawRacerPreview(ctx, w, h, previewT);
+      } else if (p.kind === 'octo') {
+        R.drawOctoPreview(ctx, w, h, previewT);
       } else {
         mini.fill(0);
         R.games[p.kind].demo(previewT, mini);

@@ -1,5 +1,5 @@
 /* Retro Hry – service worker: všetko uložené v telefóne, hry fungujú aj bez internetu. */
-const CACHE = 'retrohry-v1';
+const CACHE = 'retrohry-v2';
 const FILES = [
   './',
   'index.html',
@@ -11,6 +11,9 @@ const FILES = [
   'js/game-racing.js',
   'js/brick-console.js',
   'js/game-eggs.js',
+  'js/segscreen.js',
+  'js/game-racer.js',
+  'js/game-octopus.js',
   'js/app.js',
   'fonts/silkscreen-latin-400-normal.woff2',
   'fonts/silkscreen-latin-ext-400-normal.woff2',

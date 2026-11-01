@@ -24,7 +24,7 @@
     <div class="menu-inner">
       <header class="masthead">
         <h1 class="wordmark">Retro<br>Hry</h1>
-        <p class="tagline">Tri vreckové hry ako z&nbsp;90. rokov. Zelenkavý LCD displej, pípanie z&nbsp;bzučiaka a&nbsp;rekordy, ktoré si apka pamätá.</p>
+        <p class="tagline">Štyri vreckové hry ako z&nbsp;90. rokov. Zelenkavý LCD displej, pípanie z&nbsp;bzučiaka a&nbsp;rekordy, ktoré si apka pamätá.</p>
       </header>
 
       <nav class="shelf" aria-label="Hry">
@@ -32,16 +32,16 @@
           <span class="cart-window"><canvas data-preview="blocks" aria-hidden="true"></canvas></span>
           <span class="cart-text">
             <span class="cart-title">Kocky</span>
-            <span class="cart-desc">Padajúce kocky na kockovej konzole. Skladaj plné riadky, kým ťa nezasypú.</span>
-            <span class="cart-hi">Rekord <b data-hi="blocks">0</b></span>
+            <span class="cart-desc">Padajúce kocky na kockovej konzole. Skladaj plné riadky, kým ťa nezasypú. Ako hra B je na konzole aj autíčko z&nbsp;kociek.</span>
+            <span class="cart-hi">Rekord <b data-hi="blocks">0</b> · autá <b data-hi="racing">0</b></span>
           </span>
         </a>
         <a class="cart cart--racing" href="#formulky" data-route="formulky">
-          <span class="cart-window"><canvas data-preview="racing" aria-hidden="true"></canvas></span>
+          <span class="cart-window"><canvas data-preview="racer" aria-hidden="true"></canvas></span>
           <span class="cart-text">
             <span class="cart-title">Formulky</span>
-            <span class="cart-desc">Autíčko z kociek, dva pruhy a protiidúce autá. S plynom je viac bodov.</span>
-            <span class="cart-hi">Rekord <b data-hi="racing">0</b></span>
+            <span class="cart-desc">Cesta do diaľky, hory na obzore a&nbsp;formuly, ktoré sa k&nbsp;tebe rútia. Uhýbaj v&nbsp;troch pruhoch.</span>
+            <span class="cart-hi">Rekord 1 <b data-hi="racer1">0</b> · 2 <b data-hi="racer2">0</b></span>
           </span>
         </a>
         <a class="cart cart--eggs" href="#liska" data-route="liska">
@@ -50,6 +50,14 @@
             <span class="cart-title">Líška a&nbsp;vajíčka</span>
             <span class="cart-desc">Vajíčka sa kotúľajú zo štyroch žľabov. Nastav košík skôr, než sa rozbijú. Keď nehráš, ukazuje hodiny.</span>
             <span class="cart-hi">Rekord A <b data-hi="eggsA">0</b> · B <b data-hi="eggsB">0</b></span>
+          </span>
+        </a>
+        <a class="cart cart--octo" href="#chobotnica" data-route="chobotnica">
+          <span class="cart-window"><canvas data-preview="octo" aria-hidden="true"></canvas></span>
+          <span class="cart-text">
+            <span class="cart-title">Chobotnica</span>
+            <span class="cart-desc">Potápač schádza z&nbsp;loďky k&nbsp;truhlici s&nbsp;perlami. Chápadlá sa naťahujú po článkoch, tak si počkaj na správnu chvíľu.</span>
+            <span class="cart-hi">Rekord A <b data-hi="octoA">0</b> · B <b data-hi="octoB">0</b></span>
           </span>
         </a>
       </nav>
@@ -67,9 +75,13 @@
           <dt>Kocky</dt>
           <dd>◄ ► posun, ▼ podržaním rýchly pád, ▲ alebo ROTATE otočí kocku. Na úvodnej obrazovke ▲ mení SPEED, ▼ mení LEVEL (riadky navyše), ◄ ► prepína hru A/B.</dd>
           <dt>Formulky</dt>
-          <dd>◄ ► zmena pruhu, podržaný ROTATE alebo ▲ pridá plyn, ▼ brzdí. Máš štyri autá, zostávajúce vidíš v okienku NEXT.</dd>
+          <dd>GAME spustí hru, SET prepína medzi hrou 1 a&nbsp;2 (počas hry pauza). Trojuholníky ◄ ► alebo ťuknutie na ľavú či pravú polovicu displeja menia pruh. Máš tri autá, každých 100 bodov jedno pribudne.</dd>
+          <dt>Autá z kociek (hra B na konzole Kocky)</dt>
+          <dd>◄ ► zmena pruhu, podržaný ROTATE alebo ▲ pridá plyn, ▼ brzdí. Zostávajúce autá vidíš v okienku NEXT.</dd>
           <dt>Líška a vajíčka</dt>
           <dd>Štyri tlačidlá alebo ťuknutie do rohu displeja presunú košík. Tri rozbité vajíčka a je koniec. Každých 100 bodov sa chyby zmažú. HRA B je rýchlejšia.</dd>
+          <dt>Chobotnica</dt>
+          <dd>◄ ide k truhlici, pri truhlici každé stlačenie zoberie perlu (+1). ► ide späť k loďke. Keď sa vrátiš s perlami, započítajú sa ešte raz. Natiahnuté chápadlo potápača chytí; náhradníci čakajú v loďke.</dd>
         </dl>
       </details>
     </div>
@@ -133,6 +145,57 @@
       </div>
     </div>
   </section>
+
+  <!-- ============================================================ FORMULKY -->
+  <section id="racer" class="screen" hidden aria-label="Formulky">
+    <div class="f1">
+      <div class="f1-top">
+        <button type="button" class="f1-pill" data-btn="sound">ZVUK</button>
+        <button type="button" class="f1-pill" data-btn="onoff">MENU</button>
+      </div>
+      <div class="f1-face">
+        <div class="f1-word" aria-hidden="true">GAME</div>
+        <div class="f1-screen"><div class="lcd-holder"><canvas role="img" aria-label="Displej hry Formulky"></canvas></div></div>
+      </div>
+      <div class="f1-controls">
+        <button type="button" class="f1-tri f1-tri--l" data-btn="left" aria-label="Doľava"></button>
+        <div class="f1-panel">
+          <span class="f1-key"><button type="button" data-btn="game" aria-label="Štart hry"></button><span>GAME <small>1/2</small></span></span>
+          <span class="f1-key"><button type="button" data-btn="set" aria-label="Hra 1 alebo 2, počas hry pauza"></button><span>SET</span></span>
+        </div>
+        <button type="button" class="f1-tri f1-tri--r" data-btn="right" aria-label="Doprava"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ CHOBOTNICA -->
+  <section id="octo" class="screen" hidden aria-label="Chobotnica">
+    <div class="gw gw--octo">
+      <div class="gw-head">
+        <span class="gw-name">CHOBOTNICA</span>
+        <span class="gw-sub">HRA &amp; HODINY</span>
+      </div>
+      <div class="gw-screen">
+        <div class="lcd-holder"><canvas role="img" aria-label="Displej hry Chobotnica"></canvas></div>
+      </div>
+      <div class="gw-controls">
+        <div class="gw-side">
+          <span class="gw-arrow" aria-hidden="true">◄</span>
+          <button type="button" class="gwbtn" data-btn="left" aria-label="Doľava k truhlici"></button>
+        </div>
+        <div class="gw-mid">
+          <button type="button" class="gwsmall" data-btn="gameA">HRA A</button>
+          <button type="button" class="gwsmall" data-btn="gameB">HRA B</button>
+          <button type="button" class="gwsmall" data-btn="sound">ZVUK</button>
+          <button type="button" class="gwsmall" data-btn="onoff">MENU</button>
+        </div>
+        <div class="gw-side">
+          <span class="gw-arrow" aria-hidden="true">►</span>
+          <button type="button" class="gwbtn" data-btn="right" aria-label="Doprava k loďke"></button>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 <script src="js/core.js"></script>
@@ -141,6 +204,9 @@
 <script src="js/game-racing.js"></script>
 <script src="js/brick-console.js"></script>
 <script src="js/game-eggs.js"></script>
+<script src="js/segscreen.js"></script>
+<script src="js/game-racer.js"></script>
+<script src="js/game-octopus.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
