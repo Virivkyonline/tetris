@@ -111,13 +111,13 @@
         best += 10 + reward;
         z += 26;
       } else {
-        const n = Math.max(6, Math.round(best * (0.3 + Math.random() * 0.2)));
+        const n = Math.max(8, Math.round(best * (0.5 + Math.random() * 0.25)));
         items.squads.push(newSquad(z + 6, (Math.random() - 0.5) * 4, n));
-        best = Math.max(4, best - n);
+        best = Math.max(4, best - Math.round(n * 0.75));
         z += 28;
       }
     }
-    const boss = Math.max(12, Math.round(best * 0.55));
+    const boss = Math.max(15, Math.round(best * 0.9));
     items.squads.push(newSquad(z + 10, 0, boss, true));
     return { items, end: z + 26, startN: 10 + Math.min(20, L * 2) };
   }
@@ -341,7 +341,7 @@
                 R.sound.sfx.bonus();
               }
             }
-          } else if (tg.n > 0) {
+          } else if (tg.n > 0 && Math.random() < 0.55) {
             tg.n--;
             syncUnits(tg, tg.n, 'red', tg);
             if (tg.n <= 0) { tg.state = 'dead'; if (crowd.fight && crowd.fight.s === tg) crowd.fight = null; }

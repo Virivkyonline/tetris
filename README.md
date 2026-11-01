@@ -1,6 +1,6 @@
 # Retro Hry
 
-Štyri vreckové hry ako z 90. rokov v jednej mobilnej apke:
+Štyri vreckové hry ako z 90. rokov a jedna farebná bitka v jednej mobilnej apke:
 
 | Hra | Na čom beží | O čo ide |
 | --- | --- | --- |
@@ -14,6 +14,7 @@
 
 **Líška a vajíčka** | LCD hra s hodinami | líška chytá do košíka vajíčka zo štyroch žľabov |
 | **Chobotnica** | LCD hra s hodinami (zelený rám) | potápač nosí perly z truhlice na loďku a uhýba chápadlám |
+| **Armáda** | farebná hra na celú obrazovku | modrá armáda beží po moste cez brány (+, −, ×, ÷), strieľa do sudov a bije sa s červenými hordami |
 
 Všetko je nakreslené ako starý LCD displej (aj so „zhasnutými“ segmentmi), zvuky sú
 pípanie z piezo bzučiaka cez Web Audio, rekordy sa ukladajú v telefóne. Grafika, postavičky,
@@ -47,6 +48,12 @@ melódie aj pravidlá sú vlastné, hry sú *v štýle* starých vreckoviek, nie
 - Plne natiahnuté chápadlo potápača chytí. Piate chápadlo siaha až k truhlici, takže tam sa nedá stáť donekonečna.
 - Náhradníci sedia v loďke, každých 200 bodov jeden pribudne.
 - HRA A / HRA B (rýchlejšia). Keď sa nehrá, ukazuje hodiny.
+
+**Armáda**
+
+- Ťahaním prsta doľava/doprava vedieš armádu. Modré brány pridávajú (+, ×), červené uberajú (−, ÷).
+- Pás +1 pridá vojaka za každú dlaždicu. Sud s číslom treba zostreliť šípmi (dá bonus), náraz do neho stojí toľko vojakov, koľko má na sebe.
+- Červené hordy sa rozbehnú proti tebe; na konci úrovne čaká veľká horda a cieľ. Každá ďalšia úroveň je ťažšia.
 
 Na počítači: šípky, medzerník (otočiť), Enter (štart/pauza), Esc (menu); v Líške Q/A/P/L.
 
@@ -95,6 +102,7 @@ www/
   js/segscreen.js      spoločný LCD displej so segmentmi a hodinami
   js/game-racer.js     Formulky (cesta do diaľky)
   js/game-octopus.js   Chobotnica
+  js/game-battle.js    Armáda (most, brány, hordy)
   js/app.js            menu, navigácia, hlavná slučka
   sw.js, manifest.webmanifest, icons/, fonts/
 android/               Capacitor projekt (Android)
