@@ -3,8 +3,8 @@
 
 (function (R) {
   const $ = (s) => document.querySelector(s);
-  const screens = { menu: $('#menu'), brick: $('#brick'), eggs: $('#eggs'), racer: $('#racer'), octo: $('#octo'), battle: $('#battle') };
-  const ROUTES = { kocky: ['brick', 'blocks'], formulky: ['racer', null], liska: ['eggs', null], chobotnica: ['octo', null], armada: ['battle', null] };
+  const screens = { menu: $('#menu'), brick: $('#brick'), eggs: $('#eggs'), racer: $('#racer'), octo: $('#octo'), battle: $('#battle'), bubbles: $('#bubbles') };
+  const ROUTES = { kocky: ['brick', 'blocks'], formulky: ['racer', null], liska: ['eggs', null], chobotnica: ['octo', null], armada: ['battle', null], lopticka: ['brick', 'ball'], bubliny: ['bubbles', null] };
 
   let pushedFromMenu = false;
   const app = {
@@ -23,7 +23,8 @@
     eggs: R.EggsGame(screens.eggs, app),
     racer: R.RacerGame(screens.racer, app),
     octo: R.OctopusGame(screens.octo, app),
-    battle: R.BattleGame(screens.battle, app)
+    battle: R.BattleGame(screens.battle, app),
+    bubbles: R.BubblesGame(screens.bubbles, app)
   };
   R.devices = devices;
   let current = null;
@@ -133,6 +134,8 @@
         R.drawOctoPreview(ctx, w, h, previewT);
       } else if (p.kind === 'battle') {
         R.drawBattlePreview(ctx, w, h, previewT);
+      } else if (p.kind === 'bubbles') {
+        R.drawBubblesPreview(ctx, w, h, previewT);
       } else {
         mini.fill(0);
         R.games[p.kind].demo(previewT, mini);

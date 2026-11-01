@@ -24,7 +24,7 @@
     <div class="menu-inner">
       <header class="masthead">
         <h1 class="wordmark">Retro<br>Hry</h1>
-        <p class="tagline">Štyri vreckové hry ako z&nbsp;90. rokov so zelenkavým LCD a&nbsp;pípaním z&nbsp;bzučiaka. A&nbsp;navrch jedna farebná: Armáda.</p>
+        <p class="tagline">Vreckové hry ako z&nbsp;90. rokov so zelenkavým LCD a&nbsp;pípaním z&nbsp;bzučiaka. A&nbsp;navrch dve farebné: Ľadové bubliny a&nbsp;Armáda.</p>
       </header>
 
       <nav class="shelf" aria-label="Hry">
@@ -60,6 +60,22 @@
             <span class="cart-hi">Rekord A <b data-hi="octoA">0</b> · B <b data-hi="octoB">0</b></span>
           </span>
         </a>
+        <a class="cart cart--ball" href="#lopticka" data-route="lopticka">
+          <span class="cart-window"><canvas data-preview="ball" aria-hidden="true"></canvas></span>
+          <span class="cart-text">
+            <span class="cart-title">Loptička</span>
+            <span class="cart-desc">Pálka dole, loptička z&nbsp;jednej kocky a&nbsp;rad tehličiek hore. Hra C na kockovej konzole.</span>
+            <span class="cart-hi">Rekord <b data-hi="ball">0</b></span>
+          </span>
+        </a>
+        <a class="cart cart--bubbles" href="#bubliny" data-route="bubliny">
+          <span class="cart-window"><canvas data-preview="bubbles" aria-hidden="true"></canvas></span>
+          <span class="cart-text">
+            <span class="cart-title">Ľadové bubliny</span>
+            <span class="cart-desc">Mier a&nbsp;strieľaj farebné bubliny. Tri rovnaké pri sebe prasknú, strop sa medzitým spúšťa.</span>
+            <span class="cart-hi">Rekord <b data-hi="bubbles">0</b></span>
+          </span>
+        </a>
         <a class="cart cart--battle" href="#armada" data-route="armada">
           <span class="cart-window"><canvas data-preview="battle" aria-hidden="true"></canvas></span>
           <span class="cart-text">
@@ -90,6 +106,10 @@
           <dd>Štyri tlačidlá alebo ťuknutie do rohu displeja presunú košík. Tri rozbité vajíčka a je koniec. Každých 100 bodov sa chyby zmažú. HRA B je rýchlejšia.</dd>
           <dt>Chobotnica</dt>
           <dd>◄ ide k truhlici, pri truhlici každé stlačenie zoberie perlu (+1). ► ide späť k loďke. Keď sa vrátiš s perlami, započítajú sa ešte raz. Natiahnuté chápadlo potápača chytí, aj pri truhlici – piate chápadlo ju stráži, tak tam neostávaj priveľa. Náhradníci čakajú v loďke.</dd>
+          <dt>Loptička (hra C na kockovej konzole)</dt>
+          <dd>◄ ► posúva pálku, ROTATE alebo ▲ vypustí loptičku. Rozbi všetky tehličky; LEVEL vyberá tvar steny. Tri loptičky, zostávajúce vidíš v okienku NEXT.</dd>
+          <dt>Ľadové bubliny</dt>
+          <dd>Polož prst na plochu, mier a&nbsp;pusti – bublina vyletí. Odráža sa od stien. Tri a&nbsp;viac rovnakých farieb praskne, bubliny, ktoré nič nedrží, spadnú. Po niekoľkých výstreloch sa strop spustí o&nbsp;rad; keď bubliny prekročia červenú čiaru, zamrznú a&nbsp;je koniec.</dd>
           <dt>Armáda</dt>
           <dd>Ťahaj prstom doľava a&nbsp;doprava. Modré brány armádu zväčšia (+, ×), červené zmenšia (−, ÷). Pás +1 pridá vojakov, sud s&nbsp;číslom treba zostreliť šípmi, inak zraní vojakov. Na konci čaká veľká horda.</dd>
         </dl>
@@ -235,18 +255,48 @@
       <button type="button" class="bt-go" data-act="retry">Skúsiť znova</button>
     </div>
   </section>
+
+  <!-- ============================================================ ĽADOVÉ BUBLINY -->
+  <section id="bubbles" class="screen" hidden aria-label="Ľadové bubliny">
+    <canvas class="bt-canvas" role="img" aria-label="Hracia plocha s bublinami"></canvas>
+    <div class="bt-hud">
+      <button type="button" class="bt-chip" data-act="menu">‹ Menu</button>
+      <span class="bt-level"><span data-bb="level">Úroveň 1</span> · <span data-bb="score">0</span></span>
+      <button type="button" class="bt-chip" data-act="sound" aria-pressed="true">Zvuk zap.</button>
+    </div>
+    <div class="bt-panel" data-panel="start">
+      <p class="bt-kicker">Mier a strieľaj</p>
+      <h2 class="bt-title">Ľadové bubliny</h2>
+      <p class="bt-text">Polož prst na plochu, nastav smer a&nbsp;pusti. Tri rovnaké farby pri sebe prasknú.</p>
+      <button type="button" class="bt-go" data-act="play">Hrať</button>
+    </div>
+    <div class="bt-panel" data-panel="win" hidden>
+      <p class="bt-kicker">Plocha je čistá</p>
+      <h2 class="bt-title">Výborne!</h2>
+      <p class="bt-text">Skóre <b data-bb="winscore">0</b></p>
+      <button type="button" class="bt-go" data-act="next">Ďalšia úroveň</button>
+    </div>
+    <div class="bt-panel" data-panel="lose" hidden>
+      <p class="bt-kicker">Bubliny zamrzli</p>
+      <h2 class="bt-title">Koniec hry</h2>
+      <p class="bt-text">Skóre <b data-bb="losescore">0</b></p>
+      <button type="button" class="bt-go" data-act="retry">Hrať znova</button>
+    </div>
+  </section>
 </div>
 
 <script src="js/core.js"></script>
 <script src="js/lcd.js"></script>
 <script src="js/game-blocks.js"></script>
 <script src="js/game-racing.js"></script>
+<script src="js/game-ball.js"></script>
 <script src="js/brick-console.js"></script>
 <script src="js/game-eggs.js"></script>
 <script src="js/segscreen.js"></script>
 <script src="js/game-racer.js"></script>
 <script src="js/game-octopus.js"></script>
 <script src="js/game-battle.js"></script>
+<script src="js/game-bubbles.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

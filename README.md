@@ -14,6 +14,8 @@
 
 **Líška a vajíčka** | LCD hra s hodinami | líška chytá do košíka vajíčka zo štyroch žľabov |
 | **Chobotnica** | LCD hra s hodinami (zelený rám) | potápač nosí perly z truhlice na loďku a uhýba chápadlám |
+| **Loptička** | kocková konzola (hra C) | pálka, loptička z jednej kocky a tehličky |
+| **Ľadové bubliny** | farebná hra na celú obrazovku | strieľanie bublín, tri rovnaké prasknú, strop sa spúšťa |
 | **Armáda** | farebná hra na celú obrazovku | modrá armáda beží po moste cez brány (+, −, ×, ÷), strieľa do sudov a bije sa s červenými hordami |
 
 Všetko je nakreslené ako starý LCD displej (aj so „zhasnutými“ segmentmi), zvuky sú
@@ -48,6 +50,16 @@ melódie aj pravidlá sú vlastné, hry sú *v štýle* starých vreckoviek, nie
 - Plne natiahnuté chápadlo potápača chytí. Piate chápadlo siaha až k truhlici, takže tam sa nedá stáť donekonečna.
 - Náhradníci sedia v loďke, každých 200 bodov jeden pribudne.
 - HRA A / HRA B (rýchlejšia). Keď sa nehrá, ukazuje hodiny.
+
+**Loptička (hra C na kockovej konzole)**
+
+- ◄ ► pálka, ROTATE/▲ vypustí loptičku. LEVEL vyberá tvar steny, po rozbití všetkých tehličiek príde ďalšia a rýchlejšia.
+
+**Ľadové bubliny**
+
+- Polož prst na plochu, nastav smer, pusti = výstrel (bublina sa odráža od stien).
+- Tri a viac rovnakých farieb praskne, bubliny bez opory spadnú (dvojnásobné body za veľké pády).
+- Po niekoľkých výstreloch sa strop spustí o rad. Keď bubliny prekročia červenú čiaru, zamrznú a je koniec.
 
 **Armáda**
 
@@ -103,6 +115,8 @@ www/
   js/game-racer.js     Formulky (cesta do diaľky)
   js/game-octopus.js   Chobotnica
   js/game-battle.js    Armáda (most, brány, hordy)
+  js/game-ball.js      Loptička (hra C na konzole)
+  js/game-bubbles.js   Ľadové bubliny
   js/app.js            menu, navigácia, hlavná slučka
   sw.js, manifest.webmanifest, icons/, fonts/
 android/               Capacitor projekt (Android)

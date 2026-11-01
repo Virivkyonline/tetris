@@ -68,6 +68,11 @@
   --bt-glass: rgba(12, 28, 48, 0.72);
   --bt-gold: #ffd84a;
 
+  /* Ľadové bubliny */
+  --ice: #bfe6fb;
+  --ice-dk: #6fa9cf;
+  --ice-ink: #0d2340;
+
   /* Chobotnica – krémová so zeleným rámom */
   --oct-rim: #3d8c68;
   --oct-rim-dk: #27664a;
@@ -592,8 +597,12 @@ button { font: inherit; color: inherit; }
 /* ================================================================ ARMÁDA */
 .cart--battle { --plastic: var(--bt-blue); --plastic-dk: var(--bt-blue-dk); --print: var(--fg); }
 .cart--battle .cart-window { background: var(--bt-ink); border-radius: 8px; }
-#battle { padding: 0; background: var(--bt-ink); overflow: hidden; }
-#battle, #battle * { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+#battle, #bubbles { padding: 0; background: var(--bt-ink); overflow: hidden; }
+#bubbles { background: var(--ice-ink); }
+#battle, #battle *, #bubbles, #bubbles * { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.cart--ball { --plastic: var(--plastic-gray); --plastic-dk: var(--plastic-gray-dk); --print: var(--print-gray); }
+.cart--bubbles { --plastic: var(--ice); --plastic-dk: var(--ice-dk); --print: var(--ice-ink); }
+.cart--bubbles .cart-window { background: var(--ice-ink); border-radius: 8px; }
 .bt-canvas { position: absolute; inset: 0; display: block; touch-action: none; }
 .bt-hud {
   position: absolute;

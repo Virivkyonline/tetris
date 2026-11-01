@@ -5,14 +5,15 @@
   const W = 10, H = 20;
   const GLYPH = {
     A: ['.###.', '#...#', '#####', '#...#', '#...#'],
-    B: ['####.', '#...#', '####.', '#...#', '####.']
+    B: ['####.', '#...#', '####.', '#...#', '####.'],
+    C: ['.####', '#....', '#....', '#....', '.####']
   };
 
   R.BrickConsole = function (root, app) {
     const canvas = root.querySelector('canvas');
     const holder = root.querySelector('.lcd-holder');
     const lcd = R.BrickLCD(canvas);
-    const games = [R.games.blocks, R.games.racing];
+    const games = [R.games.blocks, R.games.racing, R.games.ball];
     const m = new Uint8Array(W * H);
     const info = {};
     let gi = 0;
@@ -20,7 +21,8 @@
     let game = null, gameDef = null;
     let t = 0, lastScore = 0;
     let curtain = null;
-    let settings = R.store.get('brick.settings', { blocks: { speed: 1, level: 1 }, racing: { speed: 1, level: 1 } });
+    let settings = R.store.get('brick.settings', {});
+    for (const g of ['blocks', 'racing', 'ball']) if (!settings[g]) settings[g] = { speed: 1, level: 1 };
     let colorIdx = R.store.get('brick.color', 0);
     const COLORS = ['yellow', 'red', 'blue', 'green', 'gray'];
 
