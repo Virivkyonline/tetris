@@ -24,7 +24,7 @@
     <div class="menu-inner">
       <header class="masthead">
         <h1 class="wordmark">Retro<br>Hry</h1>
-        <p class="tagline">Štyri vreckové hry ako z&nbsp;90. rokov. Zelenkavý LCD displej, pípanie z&nbsp;bzučiaka a&nbsp;rekordy, ktoré si apka pamätá.</p>
+        <p class="tagline">Štyri vreckové hry ako z&nbsp;90. rokov so zelenkavým LCD a&nbsp;pípaním z&nbsp;bzučiaka. A&nbsp;navrch jedna farebná: Armáda.</p>
       </header>
 
       <nav class="shelf" aria-label="Hry">
@@ -60,6 +60,14 @@
             <span class="cart-hi">Rekord A <b data-hi="octoA">0</b> · B <b data-hi="octoB">0</b></span>
           </span>
         </a>
+        <a class="cart cart--battle" href="#armada" data-route="armada">
+          <span class="cart-window"><canvas data-preview="battle" aria-hidden="true"></canvas></span>
+          <span class="cart-text">
+            <span class="cart-title">Armáda</span>
+            <span class="cart-desc">Modrá armáda beží po moste. Vyber správnu bránu, zbieraj +1, strieľaj do sudov a&nbsp;porazte červenú hordu.</span>
+            <span class="cart-hi">Najvyššia úroveň <b data-hi="battle">0</b></span>
+          </span>
+        </a>
       </nav>
 
       <section class="prefs" aria-label="Nastavenia">
@@ -82,6 +90,8 @@
           <dd>Štyri tlačidlá alebo ťuknutie do rohu displeja presunú košík. Tri rozbité vajíčka a je koniec. Každých 100 bodov sa chyby zmažú. HRA B je rýchlejšia.</dd>
           <dt>Chobotnica</dt>
           <dd>◄ ide k truhlici, pri truhlici každé stlačenie zoberie perlu (+1). ► ide späť k loďke. Keď sa vrátiš s perlami, započítajú sa ešte raz. Natiahnuté chápadlo potápača chytí, aj pri truhlici – piate chápadlo ju stráži, tak tam neostávaj priveľa. Náhradníci čakajú v loďke.</dd>
+          <dt>Armáda</dt>
+          <dd>Ťahaj prstom doľava a&nbsp;doprava. Modré brány armádu zväčšia (+, ×), červené zmenšia (−, ÷). Pás +1 pridá vojakov, sud s&nbsp;číslom treba zostreliť šípmi, inak zraní vojakov. Na konci čaká veľká horda.</dd>
         </dl>
       </details>
     </div>
@@ -196,6 +206,35 @@
       </div>
     </div>
   </section>
+
+  <!-- ============================================================ ARMÁDA -->
+  <section id="battle" class="screen" hidden aria-label="Armáda">
+    <canvas class="bt-canvas" role="img" aria-label="Most s modrou a červenou armádou"></canvas>
+    <div class="bt-hud">
+      <button type="button" class="bt-chip" data-act="menu">‹ Menu</button>
+      <span class="bt-level" data-bt="level">Úroveň 1</span>
+      <button type="button" class="bt-chip" data-act="sound" aria-pressed="true">Zvuk zap.</button>
+    </div>
+    <div class="bt-progress" aria-hidden="true"><i data-bt="bar"></i></div>
+    <div class="bt-panel" data-panel="start">
+      <p class="bt-kicker" data-bt="startlevel">Úroveň 1</p>
+      <h2 class="bt-title">Armáda</h2>
+      <p class="bt-text">Ťahaj prstom doľava a&nbsp;doprava. Modré brány pomáhajú, červené škodia. Sudy zostreľ skôr, než do nich narazíš.</p>
+      <button type="button" class="bt-go" data-act="play">Do boja</button>
+    </div>
+    <div class="bt-panel" data-panel="win" hidden>
+      <p class="bt-kicker" data-bt="winlevel">Úroveň hotová</p>
+      <h2 class="bt-title">Víťazstvo!</h2>
+      <p class="bt-text">Prežilo <b data-bt="wincount">0</b> vojakov.</p>
+      <button type="button" class="bt-go" data-act="next">Ďalšia úroveň</button>
+    </div>
+    <div class="bt-panel" data-panel="lose" hidden>
+      <p class="bt-kicker" data-bt="loselevel">Úroveň 1</p>
+      <h2 class="bt-title">Armáda padla</h2>
+      <p class="bt-text">Skús inú bránu alebo viac +1.</p>
+      <button type="button" class="bt-go" data-act="retry">Skúsiť znova</button>
+    </div>
+  </section>
 </div>
 
 <script src="js/core.js"></script>
@@ -207,6 +246,7 @@
 <script src="js/segscreen.js"></script>
 <script src="js/game-racer.js"></script>
 <script src="js/game-octopus.js"></script>
+<script src="js/game-battle.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

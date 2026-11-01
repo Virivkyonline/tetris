@@ -60,6 +60,14 @@
   --f1-word: #cfcfd2;
   --f1-bar: #e4493d;
 
+  /* Armáda – farebná hra na moste */
+  --bt-blue: #2f6fe8;
+  --bt-blue-dk: #1c4bb0;
+  --bt-red: #d7352b;
+  --bt-ink: #10233a;
+  --bt-glass: rgba(12, 28, 48, 0.72);
+  --bt-gold: #ffd84a;
+
   /* Chobotnica – krémová so zeleným rámom */
   --oct-rim: #3d8c68;
   --oct-rim-dk: #27664a;
@@ -580,6 +588,93 @@ button { font: inherit; color: inherit; }
   box-shadow: 0 3px 0 var(--f1-red-dk);
 }
 .f1-key button.is-down::before { transform: translateY(2px); box-shadow: 0 1px 0 var(--f1-red-dk); }
+
+/* ================================================================ ARMÁDA */
+.cart--battle { --plastic: var(--bt-blue); --plastic-dk: var(--bt-blue-dk); --print: var(--fg); }
+.cart--battle .cart-window { background: var(--bt-ink); border-radius: 8px; }
+#battle { padding: 0; background: var(--bt-ink); overflow: hidden; }
+#battle, #battle * { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.bt-canvas { position: absolute; inset: 0; display: block; touch-action: none; }
+.bt-hud {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px max(14px, env(safe-area-inset-right, 0px)) 0 max(14px, env(safe-area-inset-left, 0px));
+  pointer-events: none;
+}
+.bt-chip {
+  pointer-events: auto;
+  min-height: 40px;
+  padding: 6px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--bt-glass);
+  color: var(--fg);
+  font: 700 14px/1 var(--font-body);
+  cursor: pointer;
+}
+.bt-level {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--bt-glass);
+  color: var(--bt-gold);
+  font: 700 15px/1 var(--font-body);
+  font-variant-numeric: tabular-nums;
+}
+.bt-progress {
+  position: absolute;
+  top: 60px;
+  left: max(24px, env(safe-area-inset-left, 0px));
+  right: max(24px, env(safe-area-inset-right, 0px));
+  height: 8px;
+  border-radius: 999px;
+  background: var(--bt-glass);
+  overflow: hidden;
+  pointer-events: none;
+}
+.bt-progress i {
+  display: block;
+  height: 100%;
+  background: var(--bt-gold);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+.bt-panel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(340px, calc(100% - 40px));
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 22px 20px 20px;
+  border-radius: 20px;
+  background: var(--bt-glass);
+  color: var(--fg);
+  text-align: center;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.bt-kicker { margin: 0; color: var(--bt-gold); font: 700 13px/1 var(--font-display); letter-spacing: 0.08em; text-transform: uppercase; }
+.bt-title { margin: 0; font: 800 34px/1 var(--font-body); text-wrap: balance; }
+.bt-text { margin: 0; font-size: 15px; color: var(--fg); text-wrap: pretty; }
+.bt-go {
+  margin-top: 6px;
+  min-height: 52px;
+  padding: 10px 28px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--bt-blue);
+  color: var(--fg);
+  font: 800 19px/1 var(--font-body);
+  box-shadow: 0 5px 0 var(--bt-blue-dk);
+  cursor: pointer;
+}
+.bt-go:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--bt-blue-dk); }
 
 /* ================================================================ NA ŠÍRKU */
 @media (orientation: landscape) and (max-height: 620px) {
