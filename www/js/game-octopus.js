@@ -15,7 +15,8 @@
     { p0: [164, 106], c: [288, 66], p1: [380, 172], n: 6 },
     { p0: [156, 146], c: [262, 150], p1: [318, 236], n: 5 },
     { p0: [132, 160], c: [206, 196], p1: [250, 240], n: 4 },
-    { p0: [104, 164], c: [128, 228], p1: [184, 242], n: 3 }
+    { p0: [104, 164], c: [128, 228], p1: [184, 242], n: 3 },
+    { p0: [80, 166], c: [58, 224], p1: [122, 244], n: 3 } // piate chápadlo stráži truhlicu
   ];
   function bez(T, t) {
     const u = 1 - t;
@@ -72,13 +73,16 @@
     G.ellipse(ctx, x, y + 3, 6, 7, 0);
   }
   function octoBody(ctx) {
-    G.ellipse(ctx, 92, 92, 44, 36, -0.35);
-    G.ellipse(ctx, 112, 126, 46, 34, 0.2);
-    for (const T of TENT) G.circle(ctx, T.p0[0], T.p0[1], 12);
-    // krátke chápadlá, ktoré sa nehýbu
-    G.ellipse(ctx, 70, 160, 12, 7, 1.3);
-    G.ellipse(ctx, 62, 178, 9, 6, 1.4);
-    G.ellipse(ctx, 50, 150, 10, 6, 2.2);
+    // hlava ako kupola
+    ctx.moveTo(54, 132);
+    ctx.bezierCurveTo(34, 74, 86, 44, 122, 58);
+    ctx.bezierCurveTo(162, 72, 176, 116, 162, 146);
+    ctx.bezierCurveTo(142, 172, 80, 174, 54, 132);
+    ctx.closePath();
+    for (const T of TENT) G.circle(ctx, T.p0[0], T.p0[1], 11);
+    // krátke chápadlo, ktoré sa nehýbe
+    G.ellipse(ctx, 46, 146, 11, 6, 2.2);
+    G.ellipse(ctx, 36, 160, 7, 5, 1.9);
   }
   function octoEyes(ctx, glass, ink, look) {
     ctx.fillStyle = glass;
@@ -184,7 +188,7 @@
     let pos = 0, carry = 0, grabPose = 0;
     let tents = [];
     let score = 0, lives = 3, acc = 0, tickN = 0, t = 0, overT = 0, newHi = false, bonusAt = 200;
-    let caught = null, bank = null;
+    let caught = null, bank = null, lastGrab = -1;
 
     const input = R.Input({ press, release() {} });
     R.bindButtons(root, input);
@@ -212,7 +216,7 @@
     }
 
     function isCaught() {
-      if (pos < 2 || pos > 5) return false;
+      if (pos < 2) return false; // pri loďke a na lane je bezpečne
       const T = tents[pos - 2];
       return T.len === T.n;
     }
@@ -226,10 +230,9 @@
       R.haptics.buzz(300);
     }
 
-    function stepTentacle(demo) {
-      tickN++;
-      let i = tickN % 4;
-      if (Math.random() < 0.3) i = R.randInt(0, 3);
+    const GUARD = TENT.length - 1; // chápadlo pri truhlici
+
+    function moveTent(i, demo) {
       const T = tents[i];
       if (T.wait > 0) { T.wait--; return; }
       if (T.dir > 0) {
@@ -237,9 +240,23 @@
         if (T.len >= T.target) { T.len = T.target; T.dir = -1; if (T.len === T.n) T.wait = 1; }
       } else {
         T.len--;
-        if (T.len <= 0) { T.len = 0; T.dir = 1; T.target = demo ? R.randInt(1, T.n) : chooseTarget(T); T.wait = R.randInt(0, 2); }
+        if (T.len <= 0) {
+          T.len = 0; T.dir = 1;
+          // strážca truhlice sa v hre vždy natiahne celý
+          T.target = demo ? R.randInt(1, T.n) : (i === GUARD ? T.n : chooseTarget(T));
+          T.wait = R.randInt(0, 2);
+        }
       }
-      if (!demo) R.sound.tone([392, 494, 587, 698][i] * (1 + T.len * 0.06), 0.03, { vol: 0.6 });
+      if (!demo) R.sound.tone([392, 494, 587, 698, 330][i] * (1 + T.len * 0.06), 0.03, { vol: 0.6 });
+    }
+
+    function stepTentacle(demo) {
+      tickN++;
+      let i = tickN % TENT.length;
+      if (Math.random() < 0.3) i = R.randInt(0, TENT.length - 1);
+      moveTent(i, demo);
+      // strážca sa hýbe častejšie, aby sa pri truhlici nedalo stáť donekonečna
+      if (i !== GUARD && Math.random() < 0.6) moveTent(GUARD, demo);
     }
 
     function move(d) {
@@ -248,6 +265,8 @@
       if (d > 0) {
         if (pos < 6) { pos++; R.sound.sfx.move(); }
         else {
+          if (lastGrab === tickN) return; // jedna perla za takt hry
+          lastGrab = tickN;
           carry++; grabPose ^= 1;
           addScore(1);
           R.sound.sfx.catchEgg();
@@ -287,12 +306,13 @@
       if (demoStep % 2) return;
       const next = pos + demoDir;
       if (demoDir > 0 && pos === 6) {
+        if (tents[4].len >= tents[4].n - 1) { demoDir = -1; demoGrabs = 0; return; }
         grabPose ^= 1;
         if (++demoGrabs >= 3) { demoDir = -1; demoGrabs = 0; }
         return;
       }
       if (demoDir < 0 && pos === 0) { demoDir = 1; return; }
-      if (next >= 2 && next <= 5) {
+      if (next >= 2) {
         const T = tents[next - 2];
         if (T.len >= T.n - 1) return; // počká
       }
@@ -414,7 +434,7 @@
     ctx.fillStyle = 'rgba(20,24,16,0.9)';
     ctx.beginPath();
     SEG.body(ctx);
-    const L = [step % 7, (step + 3) % 6, (step + 1) % 5, (step + 2) % 4];
+    const L = [step % 7, (step + 3) % 6, (step + 1) % 5, (step + 2) % 4, (step + 3) % 4];
     L.forEach((len, i) => { for (let j = 0; j < Math.min(len, TENT[i].n); j++) SEG.tent[i][j](ctx); });
     SEG.diver[(Math.floor(step / 2) % 2) ? 1 : 2](ctx);
     ctx.fill();

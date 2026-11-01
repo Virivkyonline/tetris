@@ -1,5 +1,5 @@
 /* Retro Hry – service worker: všetko uložené v telefóne, hry fungujú aj bez internetu. */
-const CACHE = 'retrohry-v2';
+const CACHE = 'retrohry-v3';
 const FILES = [
   './',
   'index.html',

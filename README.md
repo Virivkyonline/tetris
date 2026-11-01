@@ -44,7 +44,8 @@ melódie aj pravidlá sú vlastné, hry sú *v štýle* starých vreckoviek, nie
 **Chobotnica**
 
 - ◄ = k truhlici, pri truhlici každé stlačenie zoberie perlu (+1). ► = späť k loďke; po návrate sa perly započítajú ešte raz.
-- Plne natiahnuté chápadlo potápača chytí. Náhradníci sedia v loďke, každých 200 bodov jeden pribudne.
+- Plne natiahnuté chápadlo potápača chytí. Piate chápadlo siaha až k truhlici, takže tam sa nedá stáť donekonečna.
+- Náhradníci sedia v loďke, každých 200 bodov jeden pribudne.
 - HRA A / HRA B (rýchlejšia). Keď sa nehrá, ukazuje hodiny.
 
 Na počítači: šípky, medzerník (otočiť), Enter (štart/pauza), Esc (menu); v Líške Q/A/P/L.
